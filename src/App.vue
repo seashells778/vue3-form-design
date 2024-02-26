@@ -1,11 +1,14 @@
 <template>
   <div id="app">
     <VFormDesigner ref="vfDesignerRef" :global-dsv="globalDsv">
-      <!--
       <template #customToolButtons>
-        <el-button type="text" @click="doTest">测试btn</el-button>
+        <el-button type="text" @click="saveFormJson">保存111</el-button>
       </template>
-      -->
+      <!-- <template #slotmap="formModel">
+        {{formModel}}{{1111}}
+        <el-input type="text" @click="doTest"></el-input>
+      </template> -->
+     
     </VFormDesigner>
   </div>
 </template>

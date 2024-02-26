@@ -1,7 +1,10 @@
 <template>
-  <static-content-wrapper :designer="designer" :field="field" :design-state="designState"
+  <!-- <static-content-wrapper :designer="designer" :field="field" :design-state="designState"
                           :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
-                          :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
+                          :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId"> -->
+  <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
+                     :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
+                     :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <div :class="[!!designState ? 'slot-wrapper-design' : 'slot-wrapper-render']">
       <!-- -->
       <slot :name="field.options.name" v-bind:formModel="formModel"></slot>
@@ -9,11 +12,13 @@
       <!-- slot :name="field.options.name"></slot -->
       <div v-if="!!designState" class="slot-title">{{field.options.label}}</div>
     </div>
-  </static-content-wrapper>
+  </form-item-wrapper>
+  <!-- </static-content-wrapper> -->
 </template>
 
 <script>
   import StaticContentWrapper from './static-content-wrapper'
+  import FormItemWrapper from './form-item-wrapper'
   import emitter from '@/utils/emitter'
   import i18n, {translate} from "@/utils/i18n";
   import fieldMixin from "@/components/form-designer/form-widget/field-widget/fieldMixin";
@@ -48,8 +53,15 @@
       },
 
     },
+    data() {
+      return {
+        fieldModel: null,
+        rules: [],
+      }
+    },
     components: {
       StaticContentWrapper,
+      FormItemWrapper
     },
     computed: {
 
@@ -61,6 +73,7 @@
     created() {
       /* 注意：子组件mounted在父组件created之后、父组件mounted之前触发，故子组件mounted需要用到的prop
          需要在父组件created中初始化！！ */
+      this.initFieldModel()
       this.registerToRefList()
       this.initEventHandler()
 
@@ -96,6 +109,8 @@
   }
 
   .slot-wrapper-render {
+    width: 100%;
+    min-height: 26px;
 
   }
 

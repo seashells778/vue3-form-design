@@ -9,7 +9,7 @@
 -->
 
 <template>
-  <div class="field-wrapper" :class="{'design-time-bottom-margin': !!this.designer}">
+  <div class="field-wrapper" :class="{'design-time-bottom-margin': !!this.designer, 'empty-label-field': !label}">
     <el-form-item v-if="!!field.formItemFlag && (!field.options.hidden || (designState === true))"
                   :label="label" :label-width="labelWidth + 'px'"
                   :title="field.options.labelTooltip"
@@ -232,6 +232,7 @@
 
   .field-wrapper {
     position: relative;
+    flex: 1;
 
     .field-action{
       position: absolute;
@@ -275,6 +276,10 @@
       }
     }
   }
+  .empty-label-field :deep .el-form-item .el-form-item__label{
+      display: none;
+    }
+  
 
   .field-action, .drag-handler {
     :deep(.svg-icon) {

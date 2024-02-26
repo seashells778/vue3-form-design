@@ -1,5 +1,5 @@
 <template>
-  <el-col v-if="widget.type === 'grid-col'" class="grid-cell" v-bind="layoutProps"
+  <el-col  v-if="widget.type === 'grid-col'" class="grid-cell" v-bind="layoutProps"
           :class="[selected ? 'selected' : '', customClass]" :style="colHeightStyle"
           :key="widget.id" @click.stop="selectWidget(widget)">
     <draggable :list="widget.widgetList" item-key="id" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 200}"
@@ -275,9 +275,12 @@
     padding: 3px;
     outline: 1px dashed #336699;
     position: relative;
-
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: flex-end !important;
     .form-widget-list {
       min-height: 28px;
+      flex: 1;
     }
 
     .grid-col-action{

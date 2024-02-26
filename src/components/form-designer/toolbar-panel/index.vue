@@ -5,7 +5,7 @@
         <svg-icon icon-class="undo" /></el-button>
       <el-button link type="primary" :disabled="redoDisabled" :title="i18nt('designer.toolbar.redoHint')" @click="redoHistory">
         <svg-icon icon-class="redo" /></el-button>
-      <el-button-group style="margin-left: 20px">
+      <!-- <el-button-group style="margin-left: 20px">
         <el-button :type="layoutType === 'PC' ? 'info': ''" @click="changeLayoutType('PC')">
           {{i18nt('designer.toolbar.pcLayout')}}</el-button>
         <el-button :type="layoutType === 'Pad' ? 'info': ''" @click="changeLayoutType('Pad')">
@@ -14,16 +14,16 @@
           {{i18nt('designer.toolbar.mobileLayout')}}</el-button>
       </el-button-group>
       <el-button style="margin-left: 20px" :title="i18nt('designer.toolbar.nodeTreeHint')" @click="showNodeTreeDrawer">
-        <svg-icon icon-class="node-tree" /></el-button>
+        <svg-icon icon-class="node-tree" /></el-button> -->
     </div>
 
-    <el-drawer :title="i18nt('designer.toolbar.nodeTreeTitle')" direction="ltr" v-model="showNodeTreeDrawerFlag" :modal="true" :size="280"
+    <!-- <el-drawer :title="i18nt('designer.toolbar.nodeTreeTitle')" direction="ltr" v-model="showNodeTreeDrawerFlag" :modal="true" :size="280"
                :destroy-on-close="true" class="node-tree-drawer">
       <el-tree ref="nodeTree" :data="nodeTreeData" node-key="id" default-expand-all highlight-current class="node-tree"
                icon-class="el-icon-arrow-right" @node-click="onNodeTreeClick"></el-tree>
-    </el-drawer>
+    </el-drawer> -->
 
-    <div class="right-toolbar" :style="{width: toolbarWidth + 'px'}">
+    <div class="right-toolbar" >
       <div class="right-toolbar-con">
         <el-button v-if="showToolButton('clearDesignerButton')" link type="primary" @click="clearFormWidget">
           <svg-icon icon-class="el-delete" />{{i18nt('designer.toolbar.clear')}}</el-button>
@@ -35,8 +35,8 @@
           {{i18nt('designer.toolbar.exportJson')}}</el-button>
         <el-button v-if="showToolButton('exportCodeButton')" link type="primary" @click="exportCode">
           {{i18nt('designer.toolbar.exportCode')}}</el-button>
-        <el-button v-if="showToolButton('generateSFCButton')" link type="primary" @click="generateSFC">
-          <svg-icon icon-class="vue-sfc" />{{i18nt('designer.toolbar.generateSFC')}}</el-button>
+        <!-- <el-button v-if="showToolButton('generateSFCButton')" link type="primary" @click="generateSFC">
+          <svg-icon icon-class="vue-sfc" />{{i18nt('designer.toolbar.generateSFC')}}</el-button> -->
         <template v-for="(idx, slotName) in $slots">
           <slot :name="slotName"></slot>
         </template>
@@ -54,6 +54,13 @@
                          :option-data="testOptionData" :global-dsv="designerDsv" @myEmitTest="onMyEmitTest"
                          @appendButtonClick="testOnAppendButtonClick" @buttonClick="testOnButtonClick"
                          @formChange="handleFormChange">
+                          <template #slotmap>
+                            <el-input type="text" @click="doTest"></el-input>
+                          </template>
+                          <template #slotm>
+                            <el-input type="text" @click="doTest"></el-input>
+                          </template>
+     
             </VFormRender>
           </div>
         </div>
@@ -522,7 +529,6 @@
         this.jsonRawContent = JSON.stringify({widgetList, formConfig})
         this.showExportJsonDialogFlag = true
       },
-
       copyFormJson(e) {
         copyToClipboard(this.jsonRawContent, e,
             this.$message,
@@ -664,7 +670,8 @@
         this.$refs.preForm.setFormData(testFD)
       },
 
-      testReloadOptionData() {
+      async testReloadOptionData(val) {
+       
         this.testOptionData['select001'].push({
           label: 'aaa',
           value: 888
@@ -728,6 +735,11 @@
 </script>
 
 <style lang="scss" scoped>
+.toolbar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
   .toolbar-container:after {
     display: block;
     content: "";
@@ -737,20 +749,20 @@
   .left-toolbar {
     display: flex;
     margin-top: 4px;
-    float: left;
+    // float: left;
     font-size: 16px;
   }
 
   .right-toolbar {
-    display: flex;
-    float: right;
+    // display: flex;
+    // float: right;
     line-height: 42px;
-    text-align: right;
-    overflow: hidden;
+    // text-align: right;
+    // overflow: hidden;
+    flex:1;
 
     .right-toolbar-con {
-      text-align: left;
-      width: 600px;
+      text-align: right;
     }
 
     :deep(.el-button) {

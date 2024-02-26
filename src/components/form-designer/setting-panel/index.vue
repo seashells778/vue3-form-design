@@ -69,6 +69,11 @@
           <form-setting :designer="designer" :form-config="formConfig"></form-setting>
         </el-scrollbar>
       </el-tab-pane>
+      <el-tab-pane label="使用文档" name="3">
+        <el-scrollbar class="setting-scrollbar" :style="{height: scrollerHeight}">
+          <a href="javascript:void(0)" @click="(ev) => openUrl(ev, docUrl)" target="_blank"><svg-icon icon-class="document" />官方文档</a>
+        </el-scrollbar>
+      </el-tab-pane>
     </el-tabs>
 
     <div v-if="showWidgetEventDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
@@ -128,6 +133,7 @@
     inject: ['getDesignerConfig'],
     data() {
       return {
+        docUrl: 'https://www.vform666.com/document3.html',
         designerConfig: this.getDesignerConfig(),
 
         scrollerHeight: 0,
@@ -195,6 +201,7 @@
       })
     },
     mounted() {
+      
       if (!this.designer.selectedWidget) {
         this.activeTab = "2"
       } else {
@@ -210,6 +217,21 @@
       })
     },
     methods: {
+       openUrl(event, url) {
+        if (!!this.vsCodeFlag) {
+          const msgObj = {
+            cmd: 'openUrl',
+            data: {
+              url
+            }
+          }
+          window.parent.postMessage(msgObj, '*')
+        } else {
+          let aDom = event.currentTarget
+          aDom.href = url
+          //window.open(url, '_blank') //直接打开新窗口，会被浏览器拦截
+        }
+      },
       showEventCollapse() {
         if (this.designerConfig['eventCollapse'] === undefined) {
           return true

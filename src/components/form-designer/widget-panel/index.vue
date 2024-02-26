@@ -2,11 +2,11 @@
   <el-scrollbar class="side-scroll-bar" :style="{height: scrollerHeight}">
     <div class="panel-container">
 
-    <el-tabs v-model="firstTab" class="no-bottom-margin indent-left-margin">
+    <!-- <el-tabs v-model="firstTab" class="no-bottom-margin indent-left-margin">
       <el-tab-pane name="componentLib">
         <template #label>
           <span><svg-icon icon-class="el-set-up" /> {{i18nt('designer.componentLib')}}</span>
-        </template>
+        </template> -->
 
       <el-collapse v-model="activeNames" class="widget-collapse">
         <el-collapse-item name="1" :title="i18nt('designer.containerTitle')">
@@ -33,7 +33,7 @@
           </draggable>
         </el-collapse-item>
 
-        <el-collapse-item name="3" :title="i18nt('designer.advancedFieldTitle')">
+        <!-- <el-collapse-item name="3" :title="i18nt('designer.advancedFieldTitle')">
           <draggable tag="ul" :list="advancedFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
@@ -43,10 +43,9 @@
               </li>
             </template>
           </draggable>
-        </el-collapse-item>
-
-        <el-collapse-item name="4" :title="i18nt('designer.customFieldTitle')">
-          <draggable tag="ul" :list="customFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
+        </el-collapse-item> -->
+        <el-collapse-item name="3" title="业务组件">
+          <draggable tag="ul" :list="advancedFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
             <template #item="{ element: fld }">
@@ -58,11 +57,24 @@
           </draggable>
         </el-collapse-item>
 
+        <!-- <el-collapse-item name="4" :title="i18nt('designer.customFieldTitle')">
+          <draggable tag="ul" :list="customFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
+                     :move="checkFieldMove"
+                     :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
+            <template #item="{ element: fld }">
+              <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
+                <span>
+                  <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
+              </li>
+            </template>
+          </draggable>
+        </el-collapse-item> -->
+
       </el-collapse>
 
-      </el-tab-pane>
+      <!-- </el-tab-pane> -->
 
-      <el-tab-pane v-if="showFormTemplates()" name="formLib" style="padding: 8px">
+      <!-- <el-tab-pane v-if="showFormTemplates()" name="formLib" style="padding: 8px">
         <template #label>
           <span><svg-icon icon-class="el-form-template" /> {{i18nt('designer.formLib')}}</span>
         </template>
@@ -84,7 +96,7 @@
         </template>
       </el-tab-pane>
 
-    </el-tabs>
+    </el-tabs> -->
 
     </div>
   </el-scrollbar>
@@ -125,7 +137,7 @@
 
         scrollerHeight: 0,
 
-        activeNames: ['1', '2', '3', '4'],
+        activeNames: ['1', '2', '3', '4',],
 
         containers: [],
         basicFields: [],

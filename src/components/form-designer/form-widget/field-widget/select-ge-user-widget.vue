@@ -1,19 +1,24 @@
 <template>
-  <form-item-wrapper ref="formItemWrapper" :designer="designer" :field="field" :rules="rules" :design-state="designState"
+  <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-date-picker ref="fieldEditor" :type="field.options.type" v-model="fieldModel"
-                    :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '']"
-                    :readonly="field.options.readonly" :disabled="field.options.disabled"
-                    :size="widgetSize"
-                    :clearable="field.options.clearable" :editable="field.options.editable"
-                    :format="field.options.format" :value-format="field.options.valueFormat"
-                    :placeholder="field.options.placeholder || i18nt('render.hint.datePlaceholder')"
-                    @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
-                    @change="handleChangeEvent"
-                    @click="handleOnClick"
-                    >
-    </el-date-picker>
+    <el-select ref="fieldEditor" v-model="fieldModel" class="full-width-input"
+               :disabled="field.options.disabled"
+               :size="widgetSize"
+               :clearable="field.options.clearable"
+               :filterable="field.options.filterable"
+               :allow-create="field.options.allowCreate"
+               :default-first-option="allowDefaultFirstOption"
+               :automatic-dropdown="field.options.automaticDropdown"
+               :multiple="field.options.multiple" :multiple-limit="field.options.multipleLimit"
+               :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
+               :remote="field.options.remote" :remote-method="remoteMethod"
+               @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
+               @change="handleChangeEvent">
+      <el-option v-for="item in field.options.optionItems" :key="item.value" :label="item.label"
+                 :value="item.value" :disabled="item.disabled">
+      </el-option>
+    </el-select>
   </form-item-wrapper>
 </template>
 
@@ -24,7 +29,7 @@
   import fieldMixin from "@/components/form-designer/form-widget/field-widget/fieldMixin";
 
   export default {
-    name: "date-widget",
+    name: "select-ge-user-widget",
     componentName: 'FieldWidget',  //必须固定为FieldWidget，用于接收父级组件的broadcast事件
     mixins: [emitter, fieldMixin, i18n],
     props: {
@@ -64,6 +69,17 @@
       }
     },
     computed: {
+      allowDefaultFirstOption() {
+        return (!!this.field.options.filterable && !!this.field.options.allowCreate)
+      },
+
+      remoteMethod() {
+        if (!!this.field.options.remote && !!this.field.options.onRemoteQuery) {
+          return this.remoteQuery
+        } else {
+          return undefined
+        }
+      },
 
     },
     beforeCreate() {
@@ -73,6 +89,7 @@
     created() {
       /* 注意：子组件mounted在父组件created之后、父组件mounted之前触发，故子组件mounted需要用到的prop
          需要在父组件created中初始化！！ */
+      this.initOptionItems()
       this.initFieldModel()
       this.registerToRefList()
       this.initEventHandler()
@@ -83,6 +100,7 @@
 
     mounted() {
       this.handleOnMounted()
+      console.log("select-ge-user")
     },
 
     beforeUnmount() {
@@ -90,9 +108,6 @@
     },
 
     methods: {
-      handleOnClick(){
-        this.$refs.formItemWrapper.selectField(this.field)
-      }
 
     }
   }

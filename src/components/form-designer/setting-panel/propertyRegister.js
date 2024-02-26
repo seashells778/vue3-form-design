@@ -7,6 +7,7 @@ const COMMON_PROPERTIES = {
   //字段
   'name'              :            'name-editor',
   'label'             :            'label-editor',
+  'mySlot'            :            'mySlot-editor',
   'labelAlign'        :            'labelAlign-editor',
   'type'              :            'type-editor',
   'defaultValue'      :            'defaultValue-editor',

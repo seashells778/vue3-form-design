@@ -10,7 +10,7 @@
 
 <template>
   <el-container class="main-container full-height">
-    <el-header class="main-header">
+    <!-- <el-header class="main-header">
       <div class="float-left main-title">
         <img src="../../assets/vform-logo.png" @click="openHome">
         <span class="bold">VForm 3</span> {{i18nt('application.productTitle')}} <span class="version-span">Ver {{vFormVersion}}</span></div>
@@ -30,7 +30,7 @@
         <a v-if="showLink('externalLink')" href="javascript:void(0)" @click="(ev) => openUrl(ev, subScribeUrl)" target="_blank">
           {{i18nt('application.subscription')}}<i class="el-icon-top-right"></i></a>
       </div>
-    </el-header>
+    </el-header> -->
 
     <el-container>
       <el-aside class="side-panel">
@@ -40,14 +40,19 @@
       <el-container class="center-layout-container">
         <el-header class="toolbar-header">
           <toolbar-panel :designer="designer" :global-dsv="globalDsv" ref="toolbarRef">
-            <template v-for="(idx, slotName) in $slots" #[slotName]>
-              <slot :name="slotName"></slot>
-            </template>
+            <!-- <template v-for="(idx, slotName) in $slots" #[slotName]>
+              <slot :name="slotName"  ></slot>
+            </template> -->
+            <slot name="customToolButtons" ></slot>
           </toolbar-panel>
         </el-header>
         <el-main class="form-widget-main">
           <el-scrollbar class="container-scroll-bar" :style="{height: scrollerHeight}">
             <v-form-widget :designer="designer" :form-config="designer.formConfig" :global-dsv="globalDsv" ref="formRef">
+              {{$slots}}
+            <template v-for="(idx, slotName) in $slots" #[slotName]>
+              <slot :name="slotName"></slot>
+            </template>
             </v-form-widget>
           </el-scrollbar>
         </el-main>

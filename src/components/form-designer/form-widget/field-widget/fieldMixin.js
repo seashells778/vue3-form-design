@@ -9,7 +9,6 @@ export default {
     formConfig() {
       return this.getFormConfig()
     },
-
     widgetSize() {
       return this.field.options.size || 'default'
     },
@@ -325,6 +324,7 @@ export default {
     },
 
     handleChangeEvent(value) {
+      console.log('handleChangeEvent',value)
       this.syncUpdateFormModel(value)
       this.emitFieldDataChange(value, this.oldFieldValue)
 
@@ -380,6 +380,7 @@ export default {
     handleOnChange(val, oldVal) {  //自定义onChange事件
       if (!!this.field.options.onChange) {
         let changeFn = new Function('value', 'oldValue', this.field.options.onChange)
+        console.log('handleOnChange',changeFn)
         changeFn.call(this, val, oldVal)
       }
     },
@@ -421,6 +422,7 @@ export default {
     },
 
     getWidgetRef(widgetName, showError) {
+      console.log('getWidgetRef',widgetName,this.refList)
       let foundRef = this.refList[widgetName]
       if (!foundRef && !!showError) {
         this.$message.error(this.i18nt('render.hint.refNotFound') + widgetName)

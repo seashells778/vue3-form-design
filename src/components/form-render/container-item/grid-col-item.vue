@@ -127,4 +127,11 @@
       opacity: 0;
     }
   }
+  .grid-cell{
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: flex-end !important;
+    position: relative;
+    
+  }
 </style>

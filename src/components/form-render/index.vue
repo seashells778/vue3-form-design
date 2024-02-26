@@ -169,15 +169,25 @@
       },
 
       getContainerWidgetName(widget) {
+        console.log('getContainerWidgetName',widget)
         if (widget.type === 'grid') {  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
           return 'vf-grid-item'
         }
+        
 
         return widget.type + '-item'
       },
 
       getWidgetName(widget) {
-        return widget.type + '-widget'
+        console.log('getWidgetName',widget)
+        let slotList = ['slotMap']
+        console.log(333,slotList.includes(widget.type))
+        if(slotList.includes(widget.type)){
+          return 'slot-widget'
+        }else{
+          return widget.type + '-widget'
+        }
+        
       },
 
       initLocale() {

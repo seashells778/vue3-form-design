@@ -1,30 +1,26 @@
 <template>
-  <form-item-wrapper ref="formItemWrapper" :designer="designer" :field="field" :rules="rules" :design-state="designState"
-                     :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
-                     :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-date-picker ref="fieldEditor" :type="field.options.type" v-model="fieldModel"
-                    :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '']"
-                    :readonly="field.options.readonly" :disabled="field.options.disabled"
-                    :size="widgetSize"
-                    :clearable="field.options.clearable" :editable="field.options.editable"
-                    :format="field.options.format" :value-format="field.options.valueFormat"
-                    :placeholder="field.options.placeholder || i18nt('render.hint.datePlaceholder')"
-                    @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
-                    @change="handleChangeEvent"
-                    @click="handleOnClick"
-                    >
-    </el-date-picker>
-  </form-item-wrapper>
+  <static-content-wrapper :designer="designer" :field="field" :design-state="designState"
+                          :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
+                          :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
+   {{field.options.mySlot}}
+    <div :class="[!!designState ? 'slot-wrapper-design' : 'slot-wrapper-render']">
+      <!-- -->
+      <slot :name="field.options.mySlot" :formModel="formModel" ></slot>
+      <!-- -->
+      <!-- slot :name="field.options.name"></slot -->
+      <div v-if="!!designState" class="slot-title">{{field.options.label}}</div>
+    </div>
+  </static-content-wrapper>
 </template>
 
 <script>
-  import FormItemWrapper from './form-item-wrapper'
+  import StaticContentWrapper from './static-content-wrapper'
   import emitter from '@/utils/emitter'
   import i18n, {translate} from "@/utils/i18n";
   import fieldMixin from "@/components/form-designer/form-widget/field-widget/fieldMixin";
 
   export default {
-    name: "date-widget",
+    name: "slot-widget",
     componentName: 'FieldWidget',  //必须固定为FieldWidget，用于接收父级组件的broadcast事件
     mixins: [emitter, fieldMixin, i18n],
     props: {
@@ -53,15 +49,15 @@
       },
 
     },
-    components: {
-      FormItemWrapper,
-    },
     data() {
       return {
         oldFieldValue: null, //field组件change之前的值
         fieldModel: null,
         rules: [],
       }
+    },
+    components: {
+      StaticContentWrapper,
     },
     computed: {
 
@@ -76,7 +72,6 @@
       this.initFieldModel()
       this.registerToRefList()
       this.initEventHandler()
-      this.buildFieldRules()
 
       this.handleOnCreated()
     },
@@ -90,19 +85,27 @@
     },
 
     methods: {
-      handleOnClick(){
-        this.$refs.formItemWrapper.selectField(this.field)
-      }
 
     }
+
   }
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../../styles/global.scss"; /* form-item-wrapper已引入，还需要重复引入吗？ */
+  .slot-wrapper-design {
+    width: 100%;
+    min-height: 26px;
+    background: linear-gradient(45deg, #ccc 25%, #eee 0, #eee 50%, #ccc 0, #ccc 75%, #eee 0);
+    background-size: 20px 20px;
+    text-align: center;
 
-  .full-width-input {
-    width: 100% !important;
+    .slot-title {
+      font-size: 13px;
+    }
+  }
+
+  .slot-wrapper-render {
+
   }
 
 </style>
