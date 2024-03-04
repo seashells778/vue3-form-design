@@ -27,9 +27,9 @@ export default {
       globalDsv: {
         testApiHost: 'http://www.test.com/api',
         testPort: 8080,
-         baseURL: 'https://pre-hwork.haier.net',//fromApp === 'hwork' ? process.env.VUE_APP_BASE_API : process.env.VUE_APP_JSH_DOMAIN,
-        commonPath:"/hpnback/project/api/project/list/getFilterValues",
-        userInfo:JSON.parse(localStorage.getItem("userInfo"))
+        //  baseURL: '',
+        // commonPath:"",
+        // userInfo:JSON.parse(localStorage.getItem("userInfo"))
       },
 
     }
