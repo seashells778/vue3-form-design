@@ -5,7 +5,7 @@
   <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <div :class="[!!designState ? 'slot-wrapper-design' : 'slot-wrapper-render']">
+    <div :class="[!!designState ? 'slot-wrapper-design' : (isPreview ? 'slot-wrapper-render slot-wrapper-render-preview' : 'slot-wrapper-render')]">
       <!-- -->
       <slot :name="field.options.name" v-bind:formModel="formModel"></slot>
       <!-- -->
@@ -28,6 +28,7 @@
     componentName: 'FieldWidget',  //必须固定为FieldWidget，用于接收父级组件的broadcast事件
     mixins: [emitter, fieldMixin, i18n],
     props: {
+      isPreview:Boolean,
       field: Object,
       parentWidget: Object,
       parentList: Array,
@@ -96,9 +97,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .slot-wrapper-design {
+  .slot-wrapper-design,.slot-wrapper-render-preview {
     width: 100%;
-    min-height: 26px;
+    min-height: 36px;
     background: linear-gradient(45deg, #ccc 25%, #eee 0, #eee 50%, #ccc 0, #ccc 75%, #eee 0);
     background-size: 20px 20px;
     text-align: center;
@@ -110,7 +111,7 @@
 
   .slot-wrapper-render {
     width: 100%;
-    min-height: 26px;
+    min-height: 36px;
 
   }
 

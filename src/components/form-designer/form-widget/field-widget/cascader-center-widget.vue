@@ -12,10 +12,7 @@
                    :show-all-levels="showFullPath"
                    :props="{ checkStrictly: field.options.checkStrictly, 
                     multiple: field.options.multiple, 
-                    expandTrigger: 'hover',
-                    label:'value',
-                    value:'key'
-
+                    expandTrigger: 'click',
                     }"
                    @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
                    @change="handleChangeEvent">

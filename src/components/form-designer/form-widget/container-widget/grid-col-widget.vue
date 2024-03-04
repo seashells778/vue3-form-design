@@ -8,7 +8,7 @@
                @add="(evt) => onGridDragAdd(evt, widget.widgetList)"
                @update="onGridDragUpdate" :move="checkContainerMove">
       <template #item="{ element: subWidget, index: swIdx }">
-        <div class="form-widget-list">
+        <div class="form-widget-list" :style="handleFlexWidth(subWidget)">
           <template v-if="'container' === subWidget.category">
             <component :is="subWidget.type + '-widget'" :widget="subWidget" :designer="designer" :key="subWidget.id" :parent-list="widget.widgetList"
                               :index-of-parent-list="swIdx" :parent-widget="widget"></component>
@@ -179,6 +179,15 @@
       this.initLayoutProps()
     },
     methods: {
+      handleFlexWidth(subWidget){
+        if('container' === subWidget.category){
+          return ''
+        }else{
+          let width = subWidget.options.columnWidth;
+          return width ? {width:width } : {flex:1}
+
+        }
+      },
       initLayoutProps() {
         if (!!this.widget.options.responsive) {
           let lyType = this.designer.formConfig.layoutType
@@ -212,6 +221,7 @@
       },
 
       selectWidget(widget) {
+        console.log('selectWidget',widget)
         console.log('id: ' + widget.id)
         this.designer.setSelected(widget)
       },
@@ -280,7 +290,7 @@
     align-items: flex-end !important;
     .form-widget-list {
       min-height: 28px;
-      flex: 1;
+      // flex: 1;
     }
 
     .grid-col-action{

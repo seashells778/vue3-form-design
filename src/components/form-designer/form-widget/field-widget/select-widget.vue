@@ -8,14 +8,17 @@
                :clearable="field.options.clearable"
                :filterable="field.options.filterable"
                :allow-create="field.options.allowCreate"
+               :no-data-text="'无数据'"
                :default-first-option="allowDefaultFirstOption"
                :automatic-dropdown="field.options.automaticDropdown"
                :multiple="field.options.multiple" :multiple-limit="field.options.multipleLimit"
-               :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
+               :placeholder="field.options.placeholder || ('请选择'+ field.options.label)"
                :remote="field.options.remote" :remote-method="remoteMethod"
                @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
                @change="handleChangeEvent"
                @click="handleOnClick"
+               :loading="loading"
+               :loading-text="'加载中'"
                >
       <el-option v-for="item in field.options.optionItems" :key="item.value" :label="item.label"
                  :value="item.value" :disabled="item.disabled">
@@ -68,6 +71,7 @@
         oldFieldValue: null, //field组件change之前的值
         fieldModel: null,
         rules: [],
+        loading:false
       }
     },
     computed: {
@@ -76,9 +80,11 @@
       },
 
       remoteMethod() {
+        console.log('this.field.options',this.field.options)
         if (!!this.field.options.remote && !!this.field.options.onRemoteQuery) {
           return this.remoteQuery
         } else {
+          console.log('remoteMethod')
           return undefined
         }
       },

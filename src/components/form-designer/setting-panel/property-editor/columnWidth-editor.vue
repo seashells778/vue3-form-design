@@ -27,10 +27,10 @@
 
     },
     mounted() {
-      this.designer.handleEvent('field-selected', (parentWidget) => {
-        this.subFormChildWidgetFlag = !!parentWidget && (parentWidget.type === 'sub-form');
-        //console.log('subFormChildWidgetFlag', this.subFormChildWidgetFlag)
-      })
+      // this.designer.handleEvent('field-selected', (parentWidget) => {
+      //   this.subFormChildWidgetFlag = !!parentWidget && (parentWidget.type === 'sub-form');
+      //   //console.log('subFormChildWidgetFlag', this.subFormChildWidgetFlag)
+      // })
     }
   }
 </script>

@@ -3,7 +3,7 @@
                           :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                           :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <div ref="fieldEditor" :style="!!field.options.fontSize ? `font-size: ${field.options.fontSize};`: ''">
-      <pre class="static-text" :style="{'white-space': !!field.options.preWrap ? 'pre-wrap' : 'pre', 'text-align': !!field.options.textAlign ? field.options.textAlign : 'left'}">{{field.options.textContent}}</pre></div>
+      <pre class="module-title-text" :style="{'white-space': !!field.options.preWrap ? 'pre-wrap' : 'pre', 'text-align': !!field.options.textAlign ? field.options.textAlign : 'left'}">{{field.options.textContent}}</pre></div>
   </static-content-wrapper>
 </template>
 
@@ -14,7 +14,7 @@
   import fieldMixin from "@/components/form-designer/form-widget/field-widget/fieldMixin";
 
   export default {
-    name: "static-text-widget",
+    name: "title-text-widget",
     componentName: 'FieldWidget',  //必须固定为FieldWidget，用于接收父级组件的broadcast事件
     mixins: [emitter, fieldMixin, i18n],
     props: {
@@ -79,5 +79,27 @@
 
 <style lang="scss" scoped>
   @import "../../../../styles/global.scss"; //* static-content-wrapper已引入，还需要重复引入吗？ *//
+  .module-title-text{
+    position: relative;
+    padding-left: 20px;
+    font-size: 14px;
+    color: rgb(29, 33, 41);
+    font-weight: 700;
+    height: 44px;
+    line-height: 44px;
+    margin: 0;
+    &::before{
+      content: '';
+      position: absolute;
+      left: 0;
+      display: block;
+      width: 4px;
+      height: 14px;
+      top: 50%;
+      left:10px;
+      transform: translateY(-50%);
+      background-color: rgb(44, 104, 255);
+    }
+  }
 
 </style>

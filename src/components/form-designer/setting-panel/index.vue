@@ -292,6 +292,9 @@
         this.curEventName = eventName
         this.eventHeader = `${this.optionModel.name}.${eventName}(${eventParams.join(', ')}) {`
         this.eventHandlerCode = this.selectedWidget.options[eventName] || ''
+        console.log('this.eventHandlerCode',this.eventHandlerCode)
+        console.log(typeof this.eventHandlerCode)
+        
 
         // 设置字段校验函数示例代码
         if ((eventName === 'onValidate') && (!this.optionModel['onValidate'])) {

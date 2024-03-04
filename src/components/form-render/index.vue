@@ -15,7 +15,7 @@
            @submit.prevent>
     <template v-for="(widget, index) in widgetList">
       <template v-if="'container' === widget.category">
-        <component :is="getContainerWidgetName(widget)" :widget="widget" :key="widget.id" :parent-list="widgetList"
+        <component :is="getContainerWidgetName(widget)" :widget="widget" :key="widget.id" :parent-list="widgetList" :isPreview="isPreview"
                         :index-of-parent-list="index" :parent-widget="null">
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
@@ -24,7 +24,7 @@
         </component>
       </template>
       <template v-else>
-        <component :is="getWidgetName(widget)" :field="widget" :form-model="formDataModel" :designer="null" :key="widget.id" :parent-list="widgetList"
+        <component :is="getWidgetName(widget)" :field="widget" :form-model="formDataModel" :designer="null" :key="widget.id" :parent-list="widgetList" :isPreview="isPreview"
                       :index-of-parent-list="index" :parent-widget="null">
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
@@ -57,6 +57,10 @@
       ...FieldComponents,
     },
     props: {
+      isPreview:{
+        type:Boolean,
+        default:false
+      },
       formJson: { //prop传入的表单JSON配置
         type: Object,
         default: () => buildDefaultFormJson()
@@ -179,9 +183,7 @@
       },
 
       getWidgetName(widget) {
-        console.log('getWidgetName',widget)
         let slotList = ['slotMap']
-        console.log(333,slotList.includes(widget.type))
         if(slotList.includes(widget.type)){
           return 'slot-widget'
         }else{
@@ -289,7 +291,7 @@
         this.off$('fieldChange')  //移除原有事件监听
         this.on$('fieldChange', (fieldName, newValue, oldValue, subFormName, subFormRowIndex) => {
           this.handleFieldDataChange(fieldName, newValue, oldValue, subFormName, subFormRowIndex)
-          this.$emit('formChange', fieldName, newValue, oldValue, this.formDataModel, subFormName, subFormRowIndex)
+          this.$emit('formChange', fieldName[0], fieldName[1], fieldName[2], this.formDataModel, subFormName, subFormRowIndex)
         })
       },
 

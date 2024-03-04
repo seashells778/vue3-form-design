@@ -5,7 +5,7 @@
     <el-input-number ref="fieldEditor" v-model="fieldModel" class="full-width-input"
                      :disabled="field.options.disabled"
                      :size="widgetSize" :controls-position="field.options.controlsPosition"
-                     :placeholder="field.options.placeholder"
+                     :placeholder="field.options.placeholder || ('请输入'+ field.options.label)"
                      :min="field.options.min" :max="field.options.max"
                      :precision="field.options.precision" :step="field.options.step"
                      @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
@@ -97,6 +97,10 @@
 
   .full-width-input {
     width: 100% !important;
+    :deep(.el-input__inner){
+      text-align: left;
+    }
+
   }
 
 </style>

@@ -1,0 +1,54 @@
+.form-item-wrapper{
+    :deep(.el-radio.is-bordered),:deep(.el-date-editor){
+        height: 36px;
+        line-height: 36px;
+        background: rgb(242, 243, 245);
+        border-radius: 4px;
+        // padding-left: 12px;
+        border: none;
+        color: rgb(29, 33, 41);
+    }
+    :deep(.el-input .el-input__count .el-input__count-inner){
+        background-color: transparent;
+    }
+    :deep(.el-select__wrapper),:deep(.el-input__wrapper){
+        height: 36px;
+        line-height: 36px;
+        border: none ;
+        background: rgb(242, 243, 245);
+        // padding: 0px 0px 0px 12px !important;
+        box-shadow: none ;
+        border-radius: 4px;
+        padding-top: 0;
+        padding-bottom: 0;
+        &:hover{
+            background-color: rgb(229, 230, 235);
+            box-shadow: none ;
+        }
+    }
+    :deep(.el-radio){
+        margin-right: 10px;
+    }
+    :deep(.el-radio__input.is-checked .el-radio__inner){
+        border-color: rgb(22, 93, 255);
+        background: rgb(22, 93, 255);
+    }
+
+    :deep(.el-radio__input.is-checked+.el-radio__label){
+        color: rgb(96, 98, 102);
+    }
+    .is-error{
+        :deep(.el-select__wrapper),:deep(.el-input__wrapper){
+                background-color: rgb(253, 236, 238);;
+                box-shadow: none ;
+             &:hover{
+                background-color:#fff;
+                border-color: rgb(245, 108, 108);
+            }
+            
+        }
+
+    }
+
+
+}

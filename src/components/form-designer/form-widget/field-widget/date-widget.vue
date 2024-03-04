@@ -4,11 +4,12 @@
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <el-date-picker ref="fieldEditor" :type="field.options.type" v-model="fieldModel"
                     :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '']"
+                    style="width:100%"
                     :readonly="field.options.readonly" :disabled="field.options.disabled"
                     :size="widgetSize"
                     :clearable="field.options.clearable" :editable="field.options.editable"
                     :format="field.options.format" :value-format="field.options.valueFormat"
-                    :placeholder="field.options.placeholder || i18nt('render.hint.datePlaceholder')"
+                    :placeholder="field.options.placeholder || ('请选择'+ field.options.label)"
                     @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
                     @change="handleChangeEvent"
                     @click="handleOnClick"

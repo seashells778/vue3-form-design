@@ -9,7 +9,10 @@
 -->
 
 <template>
-  <div class="field-wrapper" :class="{'design-time-bottom-margin': !!this.designer, 'empty-label-field': !label}">
+  <div class="field-wrapper form-item-wrapper" 
+  :class="{'design-time-bottom-margin': !!this.designer, 'empty-label-field': !label}"
+  :style="{width: (field.options.columnWidth || '100%')}"
+  >
     <el-form-item v-if="!!field.formItemFlag && (!field.options.hidden || (designState === true))"
                   :label="label" :label-width="labelWidth + 'px'"
                   :title="field.options.labelTooltip"
@@ -116,6 +119,7 @@
       },
 
       labelWidth() {
+        console.log('labelWidth',this.field.options,this.designer)
         if (!!this.field.options.labelHidden) {
           return 0
         }
@@ -162,6 +166,7 @@
     methods: {
 
       selectField(field) {
+        console.log('selectField',field)
         if (!!this.designer) {
           this.designer.setSelected(field)
           this.designer.emitEvent('field-selected', this.parentWidget)  //发送选中组件的父组件对象
@@ -225,6 +230,7 @@
 
 <style lang="scss" scoped>
   @import "../../../../styles/global.scss";
+   @import "../../../../styles/custom.scss";
 
   .design-time-bottom-margin {
     margin-bottom: 5px;

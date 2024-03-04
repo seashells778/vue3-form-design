@@ -49,6 +49,7 @@ export default {
       color:          '颜色选择器',
       slider:         '滑块',
       'static-text':  '静态文字',
+      'title-text':   '标题模块',
       'html-text':    'HTML',
       button:         '按钮',
       divider:        '分隔线',

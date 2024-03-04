@@ -1,6 +1,8 @@
 import {deepClone} from "@/utils/util"
 import FormValidators from '@/utils/validators'
 import eventBus from "@/utils/event-bus"
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 export default {
   inject: ['refList', 'getFormConfig', 'getGlobalDsv', 'globalOptionData', 'globalModel', 'getOptionData'],
@@ -29,6 +31,7 @@ export default {
     },
 
   },
+
 
   methods: {
 
@@ -122,7 +125,11 @@ export default {
 
     },
 
-    handleOnCreated() {
+    async handleOnCreated() {
+      if(!!this.field.options.onExpandCreated){
+        await this.initExpandComponent()
+        return
+      }
       if (!!this.field.options.onCreated) {
         let customFunc = new Function(this.field.options.onCreated)
         customFunc.call(this)
@@ -181,6 +188,35 @@ export default {
         }
       }
     },
+    // 初始化业务组件数据
+    async initExpandComponent(){
+      let res = this.getGlobalDsv()
+      let commonOptions = sessionStorage.getItem('commonOptions') || null
+      console.log(444,res)
+      if(res.baseURL && res.commonPath && res.userInfo ){
+        console.log(444,this.field)
+        let httpKey = this.field.options.httpKey
+        if(!commonOptions){
+          axios.get(`${res.baseURL}${res.commonPath}`,{
+            headers:{AIN:encodeURIComponent(JSON.stringify(res.userInfo))}
+          })
+          .then(res=>{
+            if(res.data.code === 200){
+              sessionStorage.setItem('commonOptions',JSON.stringify(res.data.data))
+              this.loadOptions(res.data.data[httpKey]) 
+            }else{
+              ElMessage.error(res.data.message)
+              return null
+            }
+          },err=>{
+            ElMessage.error(err.message)
+          })
+        }else{
+          let options = JSON.parse(commonOptions)
+          this.loadOptions(options[httpKey]) 
+        }
+      }
+    },
 
     refreshDefaultValue() {
       if ((this.designState === true) && (this.field.options.defaultValue !== undefined)) {
@@ -202,12 +238,13 @@ export default {
       }
 
       this.rules.splice(0, this.rules.length)  //清空已有
+      console.log('buildFieldRules',this.field.options)
       if (!!this.field.options.required) {
         this.rules.push({
           required: true,
           //trigger: ['blur', 'change'],
           trigger: ['blur'],  /* 去掉change事件触发校验，change事件触发时formModel数据尚未更新，导致radio/checkbox必填校验出错！！ */
-          message: this.field.options.requiredHint || this.i18nt('render.hint.fieldRequired'),
+          message: this.field.options.requiredHint || (this.field.options.label ? `${this.field.options.label}-必填` : '') ,
         })
       }
 
@@ -405,7 +442,16 @@ export default {
       }
     },
 
-    remoteQuery(keyword) {
+    async remoteQuery(keyword) {
+      console.log('remoteQuery',keyword,this.field.options)
+      if(!!this.field.options.onExternalRemoteQuery && keyword && !this.loading){
+        this.loading = true
+        const fn = new Function('return ' + this.field.options.onExternalRemoteQuery)()
+        let data = await fn(keyword)
+        this.loadOptions(data)
+        this.loading = false
+        return
+      }
       if (!!this.field.options.onRemoteQuery) {
         let remoteFn = new Function('keyword', this.field.options.onRemoteQuery)
         remoteFn.call(this, keyword)
@@ -541,6 +587,10 @@ export default {
     loadOptions(options) {
       this.field.options.optionItems = deepClone(options)
       //this.clearSelectedOptions()  //清空已选选项
+    },
+    // 设置拓展远程搜索方法
+    setRemoteQuery(fn){
+      this.field.options.onExternalRemoteQuery = fn.toString()
     },
 
     /**

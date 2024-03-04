@@ -7,7 +7,7 @@
               :size="widgetSize" class="hide-spin-button"
               :type="inputType"
               :show-password="field.options.showPassword"
-              :placeholder="field.options.placeholder"
+              :placeholder="field.options.placeholder || ('请输入'+ field.options.label)"
               :clearable="field.options.clearable"
               :minlength="field.options.minLength" :maxlength="field.options.maxLength"
               :show-word-limit="field.options.showWordLimit"

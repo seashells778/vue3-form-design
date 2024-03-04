@@ -149,7 +149,9 @@ export default {
   watch: {
     "designer.widgetList": {
       deep: true,
+      immediate:true,
       handler(val) {
+        console.log("designer.widgetList",val)
         //
       },
     },
@@ -171,7 +173,6 @@ export default {
   },
   methods: {
     getWidgetName(widget) {
-      console.log('getWidgetName',widget)
       return widget.type + "-widget";
     },
 
@@ -191,9 +192,11 @@ export default {
     },
 
     onDragAdd(evt) {
-      console.log("onDragAdd", evt);
+      console.log("onDragAdd1111111111",this.designer.widgetList);
+      console.log('onDragAdd1111111111',evt.newIndex)
       const newIndex = evt.newIndex;
       if (!!this.designer.widgetList[newIndex]) {
+        console.log('this.designer.widgetList[newIndex]',this.designer.widgetList[newIndex])
         this.designer.setSelected(this.designer.widgetList[newIndex]);
       }
 

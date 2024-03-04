@@ -40,7 +40,7 @@ export const containers = [
     options: {
       name: 'slot',
       label: '',
-      columnWidth: '300px',
+      columnWidth: '100%',
       hidden: false,
       // textContent: 'static text',
       textAlign: 'left',
@@ -129,7 +129,7 @@ export const basicFields = [
       type: 'text',
       defaultValue: '',
       placeholder: '',
-      columnWidth: '200px',
+      columnWidth: '',
       size: '',
       labelWidth: null,
       labelHidden: false,
@@ -177,7 +177,7 @@ export const basicFields = [
       rows: 3,
       defaultValue: '',
       placeholder: '',
-      columnWidth: '200px',
+      columnWidth: '',
       size: '',
       labelWidth: null,
       labelHidden: false,
@@ -216,7 +216,7 @@ export const basicFields = [
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
-      columnWidth: '200px',
+      columnWidth: '',
       size: '',
       labelWidth: null,
       labelHidden: false,
@@ -246,7 +246,7 @@ export const basicFields = [
       //-------------------
       onCreated: '',
       onMounted: '',
-      onRemoteQuery: '',
+      onRemoteQuery: "console.log('onRemoteQuery')",
       onChange: '',
       onFocus: '',
       onBlur: '',
@@ -263,7 +263,7 @@ export const basicFields = [
       labelAlign: '',
       defaultValue: 0,
       placeholder: '',
-      columnWidth: '200px',
+      columnWidth: '100%',
       size: '',
       labelWidth: null,
       labelHidden: false,
@@ -305,7 +305,7 @@ export const basicFields = [
       size: '',
       labelWidth: null,
       labelHidden: false,
-      columnWidth: '200px',
+      columnWidth: '100%',
       disabled: false,
       hidden: false,
       clearable: true,
@@ -345,7 +345,7 @@ export const basicFields = [
       label: '',
       labelAlign: '',
       defaultValue: null,
-      columnWidth: '200px',
+      columnWidth: '100%',
       size: '',
       displayStyle: 'inline',
       buttonStyle: false,
@@ -386,7 +386,7 @@ export const basicFields = [
       type: 'date',
       defaultValue: null,
       placeholder: '',
-      columnWidth: '200px',
+      columnWidth: '100%',
       size: '',
       autoFullWidth: true,
       labelWidth: null,
@@ -425,7 +425,7 @@ export const basicFields = [
       label: '',
       labelAlign: '',
       defaultValue: [],
-      columnWidth: '200px',
+      columnWidth: '100%',
       size: '',
       displayStyle: 'inline',
       buttonStyle: false,
@@ -466,7 +466,7 @@ export const basicFields = [
   //     labelAlign: '',
   //     defaultValue: null,
   //     placeholder: '',
-  //     columnWidth: '200px',
+  //      columnWidth: '100%',
   //     size: '',
   //     autoFullWidth: true,
   //     labelWidth: null,
@@ -507,7 +507,7 @@ export const basicFields = [
   //     defaultValue: null,
   //     startPlaceholder: '',
   //     endPlaceholder: '',
-  //     columnWidth: '200px',
+  //      columnWidth: '100%',
   //     size: '',
   //     autoFullWidth: true,
   //     labelWidth: null,
@@ -550,7 +550,7 @@ export const basicFields = [
       defaultValue: null,
       startPlaceholder: '',
       endPlaceholder: '',
-      columnWidth: '200px',
+      columnWidth: '100%',
       size: '',
       autoFullWidth: true,
       labelWidth: null,
@@ -590,7 +590,7 @@ export const basicFields = [
       label: '',
       labelAlign: '',
       defaultValue: null,
-      columnWidth: '200px',
+      columnWidth: '100%',
       labelWidth: null,
       labelHidden: false,
       disabled: false,
@@ -622,7 +622,7 @@ export const basicFields = [
   //     label: '',
   //     labelAlign: '',
   //     defaultValue: null,
-  //     columnWidth: '200px',
+  //      columnWidth: '100%',
   //     labelWidth: null,
   //     labelHidden: false,
   //     disabled: false,
@@ -659,7 +659,7 @@ export const basicFields = [
   //     label: '',
   //     labelAlign: '',
   //     defaultValue: null,
-  //     columnWidth: '200px',
+  //      columnWidth: '100%',
   //     size: '',
   //     labelWidth: null,
   //     labelHidden: false,
@@ -690,7 +690,7 @@ export const basicFields = [
   //     name: '',
   //     label: '',
   //     labelAlign: '',
-  //     columnWidth: '200px',
+  //      columnWidth: '100%',
   //     showStops: true,
   //     size: '',
   //     labelWidth: null,
@@ -750,7 +750,7 @@ export const basicFields = [
     formItemFlag: false,
     options: {
       name: '',
-      columnWidth: '200px',
+      columnWidth: '100%',
       hidden: false,
       textContent: 'static text',
       textAlign: 'left',
@@ -770,7 +770,7 @@ export const basicFields = [
   //   formItemFlag: false,
   //   options: {
   //     name: '',
-  //     columnWidth: '200px',
+  //      columnWidth: '100%',
   //     hidden: false,
   //     htmlContent: '<b>html text</b>',
   //     //-------------------
@@ -790,7 +790,7 @@ export const basicFields = [
     options: {
       name: '',
       label: '',
-      columnWidth: '200px',
+      columnWidth: '100%',
       direction: 'horizontal',
       contentPosition: 'center',
       hidden: false,
@@ -895,36 +895,55 @@ export const basicFields = [
 
 export const advancedFields = [
   {
-    type: 'slot-map',
-    icon: 'slot-component',
+    type: 'title-text',
+    icon: 'static-text',
     formItemFlag: false,
     options: {
-      name: 'slotMap',
-      columnWidth: '200px',
+      name: '',
+      columnWidth: '100%',
       hidden: false,
-      mySlot: 'slotmap',
-      // textContent: 'static text',
+      textContent: 'title text',
       textAlign: 'left',
-      // fontSize: '13px',
-      // preWrap: false,  //是否自动换行
-      // //-------------------
-      // customClass: '',  //自定义css类名
-      // //-------------------
-      // onCreated: '',
-      // onMounted: '',
+      fontSize: '14px',
+      preWrap: false,  //是否自动换行
+      //-------------------
+      customClass: '',  //自定义css类名
+      //-------------------
+      onCreated: '',
+      onMounted: '',
     },
   },
+  // {
+  //   type: 'slot-map',
+  //   icon: 'slot-component',
+  //   formItemFlag: false,
+  //   options: {
+  //     name: 'slotMap',
+  //     columnWidth: '100%',
+  //     hidden: false,
+  //     mySlot: 'slotmap',
+  //     // textContent: 'static text',
+  //     textAlign: 'left',
+  //     // fontSize: '13px',
+  //     // preWrap: false,  //是否自动换行
+  //     // //-------------------
+  //     // customClass: '',  //自定义css类名
+  //     // //-------------------
+  //     // onCreated: '',
+  //     // onMounted: '',
+  //   },
+  // },
   {
     type: 'select-ge-user', //政企用户
     icon: 'select-field',
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '政企用户',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
-      columnWidth: '200px',
+      columnWidth: '100%',
       size: '',
       labelWidth: null,
       labelHidden: false,
@@ -938,71 +957,6 @@ export const advancedFields = [
       multiple: false,
       multipleLimit: 10,
       optionItems: [],
-      // [
-      //   {
-      //     "id": 1,
-      //     "parentId": 0,
-      //     "code": "LARGE_COMPANY",
-      //     "name": "央国企用户",
-      //     "value": "1",
-      //     "label": "央国企用户",
-      //     "children": []
-      // },
-      // {
-      //     "id": 2,
-      //     "parentId": 0,
-      //     "code": "PRIVATE_COMPANY",
-      //     "name": "民企用户",
-      //     "value": "2",
-      //     "label": "民企用户",
-      //     "children": []
-      // },
-      // {
-      //     "id": 4,
-      //     "parentId": 0,
-      //     "code": "TOB_COMPANY",
-      //     "name": "地产用户",
-      //     "value": "4",
-      //     "label": "地产用户",
-      //     "children": []
-      // },
-      // {
-      //     "id": 5,
-      //     "parentId": 0,
-      //     "code": "GOV_COMPANY",
-      //     "name": "政府用户",
-      //     "value": "5",
-      //     "label": "政府用户",
-      //     "children": []
-      // },
-      // {
-      //     "id": 10,
-      //     "parentId": 0,
-      //     "code": "ENG_COMPANY",
-      //     "name": "工程用户",
-      //     "value": "10",
-      //     "label": "工程用户",
-      //     "children": []
-      // },
-      // {
-      //     "id": 11,
-      //     "parentId": 0,
-      //     "code": "CATENA_COMPANY",
-      //     "name": "连锁用户",
-      //     "value": "11",
-      //     "label": "连锁用户",
-      //     "children": []
-      // },
-      // {
-      //     "id": 12,
-      //     "parentId": 0,
-      //     "code": "GRID_SMALL_ORDER",
-      //     "name": "网格小单",
-      //     "value": "12",
-      //     "label": "网格小单",
-      //     "children": []
-      // }
-      // ],
       required: false,
       requiredHint: '',
       validation: '',
@@ -1014,6 +968,8 @@ export const advancedFields = [
       labelTooltip: null,
       //-------------------
       onCreated: '',
+      onExpandCreated:true, //业务组件独有，默认值
+      httpKey:'eagConsumerType', //业务组件独有，与后端接口定义
       onMounted: '',
       onRemoteQuery: '',
       onChange: '',
@@ -1028,14 +984,14 @@ export const advancedFields = [
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '所属小微',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
       size: '',
       labelWidth: null,
       labelHidden: false,
-      columnWidth: '200px',
+      columnWidth: '100%',
       disabled: false,
       hidden: false,
       clearable: true,
@@ -1043,11 +999,7 @@ export const advancedFields = [
       multiple: false,
       checkStrictly: false,  //可选择任意一级选项，默认不开启
       showAllLevels: true,  //显示完整路径
-      optionItems: [
-        {label: 'select 1', value: 1, children: [{label: 'child 1', value: 11}]},
-        {label: 'select 2', value: 2},
-        {label: 'select 3', value: 3},
-      ],
+      optionItems: [],
       required: false,
       requiredHint: '',
       customRule: '',
@@ -1057,52 +1009,9 @@ export const advancedFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
-      //-------------------
-      // onCreated: '',
-      // onMounted: '',
-      onChange: '',
-      onFocus: '',
-      onBlur: '',
-      onValidate: '',
-    },
-  },
-  {
-    type: 'cascader-center-grid',
-    icon: 'cascader-field',
-    formItemFlag: true,
-    options: {
-      name: '',
-      label: '',
-      labelAlign: '',
-      defaultValue: '',
-      placeholder: '',
-      size: '',
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: '200px',
-      disabled: false,
-      hidden: false,
-      clearable: true,
-      filterable: false,
-      multiple: false,
-      checkStrictly: false,  //可选择任意一级选项，默认不开启
-      showAllLevels: true,  //显示完整路径
-      optionItems: [
-        {label: 'select 1', value: 1, children: [{label: 'child 1', value: 11}]},
-        {label: 'select 2', value: 2},
-        {label: 'select 3', value: 3},
-      ],
-      required: false,
-      requiredHint: '',
-      customRule: '',
-      customRuleHint: '',
-      //-------------------
-      customClass: '',  //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: 'rear',
-      labelTooltip: null,
-      //-------------------
       onCreated: '',
+      onExpandCreated:true, //业务组件独有，默认值
+      httpKey:'centerCode', //业务组件独有，与后端接口定义
       onMounted: '',
       onChange: '',
       onFocus: '',
@@ -1110,6 +1019,48 @@ export const advancedFields = [
       onValidate: '',
     },
   },
+  // {
+  //   type: 'cascader-center-grid',
+  //   icon: 'cascader-field',
+  //   formItemFlag: true,
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     labelAlign: '',
+  //     defaultValue: '',
+  //     placeholder: '',
+  //     size: '',
+  //     labelWidth: null,
+  //     labelHidden: false,
+  //     columnWidth: '100%',
+  //     disabled: false,
+  //     hidden: false,
+  //     clearable: true,
+  //     filterable: false,
+  //     multiple: false,
+  //     checkStrictly: false,  //可选择任意一级选项，默认不开启
+  //     showAllLevels: true,  //显示完整路径
+  //     optionItems: [],
+  //     required: false,
+  //     requiredHint: '',
+  //     customRule: '',
+  //     customRuleHint: '',
+  //     //-------------------
+  //     customClass: '',  //自定义css类名
+  //     labelIconClass: null,
+  //     labelIconPosition: 'rear',
+  //     labelTooltip: null,
+  //     //-------------------
+  //     onCreated: '',
+  //     onExpandCreated:true, //业务组件独有，默认值
+  //     httpKey:'centerCode', //业务组件独有，与后端接口定义
+  //     onMounted: '',
+  //     onChange: '',
+  //     onFocus: '',
+  //     onBlur: '',
+  //     onValidate: '',
+  //   },
+  // },
 
  
 

@@ -1,26 +1,28 @@
 <template>
-  <el-col class="grid-cell" :class="[customClass]" v-bind="layoutProps" :style="colHeightStyle"
+  <el-col class="grid-cell render-grid-cell" :class="[customClass,{'flex-grid-cell':widget.widgetList.length > 1}]" v-bind="layoutProps" :style="colHeightStyle"
           :key="widget.id" v-show="!widget.options.hidden">
     <template v-if="!!widget.widgetList && (widget.widgetList.length > 0)">
-      <template v-for="(subWidget, swIdx) in widget.widgetList">
-        <template v-if="'container' === subWidget.category">
-          <component :is="getComponentByContainer(subWidget)" :widget="subWidget" :key="swIdx" :parent-list="widget.widgetList"
+      <template v-for="(subWidget, swIdx) in widget.widgetList" :key="swIdx">
+        <div class="form-widget-list" :style="handleFlexWidth(subWidget)" >
+          <template v-if="'container' === subWidget.category">
+            <component :is="getComponentByContainer(subWidget)" :widget="subWidget" :key="swIdx" :parent-list="widget.widgetList" :isPreview="isPreview"
+                            :index-of-parent-list="swIdx" :parent-widget="widget">
+              <!-- 递归传递插槽！！！ -->
+              <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
+                <slot :name="slot" v-bind="scope"/>
+              </template>
+            </component>
+          </template>
+          <template v-else>
+            <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="null" :key="swIdx" :parent-list="widget.widgetList"  :isPreview="isPreview"
                           :index-of-parent-list="swIdx" :parent-widget="widget">
-            <!-- 递归传递插槽！！！ -->
-            <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
-              <slot :name="slot" v-bind="scope"/>
-            </template>
-          </component>
-        </template>
-        <template v-else>
-          <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="null" :key="swIdx" :parent-list="widget.widgetList"
-                        :index-of-parent-list="swIdx" :parent-widget="widget">
-            <!-- 递归传递插槽！！！ -->
-            <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
-              <slot :name="slot" v-bind="scope"/>
-            </template>
-          </component>
-        </template>
+              <!-- 递归传递插槽！！！ -->
+              <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
+                <slot :name="slot" v-bind="scope"/>
+              </template>
+            </component>
+          </template>
+        </div>
       </template>
     </template>
     <template v-else>
@@ -45,6 +47,7 @@
       ...FieldComponents,
     },
     props: {
+      isPreview:Boolean,
       widget: Object,
       parentWidget: Object,
       parentList: Array,
@@ -89,6 +92,15 @@
       this.initRefList()
     },
     methods: {
+      handleFlexWidth(subWidget){
+        if('container' === subWidget.category){
+          return ''
+        }else{
+          let width = subWidget.options.columnWidth;
+          return width ? {width:width } : {flex:1}
+
+        }
+      },
       initLayoutProps() {
         if (!!this.widget.options.responsive) {
           if (!!this.previewState) {
@@ -127,7 +139,7 @@
       opacity: 0;
     }
   }
-  .grid-cell{
+  .flex-grid-cell{
     display: flex !important;
     justify-content: flex-start !important;
     align-items: flex-end !important;
