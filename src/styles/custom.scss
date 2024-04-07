@@ -8,10 +8,14 @@
         border: none;
         color: rgb(29, 33, 41);
     }
+    :deep(.el-radio.is-bordered){
+        flex: 1;
+    }
     :deep(.el-input .el-input__count .el-input__count-inner){
         background-color: transparent;
     }
     :deep(.el-select__wrapper),:deep(.el-input__wrapper){
+        width: 100%;
         height: 36px;
         line-height: 36px;
         border: none ;
@@ -19,12 +23,15 @@
         // padding: 0px 0px 0px 12px !important;
         box-shadow: none ;
         border-radius: 4px;
-        padding-top: 0;
-        padding-bottom: 0;
+        padding:0;
         &:hover{
             background-color: rgb(229, 230, 235);
             box-shadow: none ;
         }
+    }
+    :deep(.el-input__inner),:deep(.el-select__wrapper){
+        padding-left: 12px;
+        padding-right: 12px;
     }
     :deep(.el-radio){
         margin-right: 10px;
@@ -49,6 +56,56 @@
         }
 
     }
-
-
 }
+.setting-panel{
+    :deep(.el-input){
+        height: 22px;
+        line-height: 22px;
+    }
+    :deep(.el-select__wrapper),:deep(.el-input__wrapper){
+        width: 100%;
+        height: 22px;
+        line-height: 22px;
+        border: none ;
+        background: rgb(242, 243, 245);
+        border: 1px solid #e5e5e5;
+        box-shadow: none ;
+        border-radius: 4px;
+        padding:0;
+        &:hover{
+            background-color: rgb(229, 230, 235);
+            box-shadow: none ;
+        }
+    }
+
+    :deep(.el-input__inner),:deep(.el-select__wrapper){
+        padding-left: 12px;
+        padding-right: 12px;
+        height: 22px;
+        line-height: 22px;
+
+    }
+    :deep(.el-switch__core::after){
+        content: "";
+        width: 12px;
+        height: 12px;
+    }
+    :deep(.el-radio){
+        background:none;
+    }
+    :deep(.el-button){
+        height: 22px;
+        padding: 5px;
+    }
+    :deep(.el-button--small.is-round){
+        height: 22px;
+        padding: 5px 11px;
+    }
+    :deep(.el-button--primary){
+        color: #fff;
+    }
+    :deep(.el-input-number){
+        width: 120px;
+    }
+}
+

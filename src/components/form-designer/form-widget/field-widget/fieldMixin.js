@@ -446,8 +446,9 @@ export default {
       console.log('remoteQuery',keyword,this.field.options)
       if(!!this.field.options.onExternalRemoteQuery && keyword && !this.loading){
         this.loading = true
-        const fn = new Function('return ' + this.field.options.onExternalRemoteQuery)()
-        let data = await fn(keyword)
+        // const fn = new Function('return ' + this.field.options.onExternalRemoteQuery)()
+        // let data = await fn(keyword)
+        let data = await this.field.options.onExternalRemoteQuery(keyword)
         this.loadOptions(data)
         this.loading = false
         return
@@ -589,8 +590,27 @@ export default {
       //this.clearSelectedOptions()  //清空已选选项
     },
     // 设置拓展远程搜索方法
-    setRemoteQuery(fn){
-      this.field.options.onExternalRemoteQuery = fn.toString()
+    setRemoteQuery(httpparams={},fn=null){
+      // this.field.options.onExternalRemoteQuery = fn.toString()
+      const {path,methods,headers,key} = httpparams
+      if(methods,path){
+        this.field.options.onExternalRemoteQuery = async (keyword)=>{
+          const fnCall = fn ;
+          const {baseURL} = this.getGlobalDsv()
+          const {data} = await axios[methods](`${baseURL}${path}`,{
+            headers,
+            params:{
+              [key]:keyword
+            }
+          })
+          if(data.code === 200){
+            return fnCall ? fnCall(data.data) : data.data
+          }else{
+            ElMessage.error(data.msg)
+          }
+        }
+
+      }
     },
 
     /**

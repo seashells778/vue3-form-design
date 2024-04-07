@@ -1,42 +1,27 @@
 <template>
   <div class="toolbar-container">
     <div class="left-toolbar">
-      <el-button link type="primary" :disabled="undoDisabled" :title="i18nt('designer.toolbar.undoHint')" @click="undoHistory">
+      <el-button link type="text" :disabled="undoDisabled" :title="i18nt('designer.toolbar.undoHint')" @click="undoHistory" style="background-color:none;color:#2c68ff;">
         <svg-icon icon-class="undo" /></el-button>
-      <el-button link type="primary" :disabled="redoDisabled" :title="i18nt('designer.toolbar.redoHint')" @click="redoHistory">
+      <el-button link type="text" :disabled="redoDisabled" :title="i18nt('designer.toolbar.redoHint')" @click="redoHistory" style="background-color:none;color:#2c68ff;">
         <svg-icon icon-class="redo" /></el-button>
-      <!-- <el-button-group style="margin-left: 20px">
-        <el-button :type="layoutType === 'PC' ? 'info': ''" @click="changeLayoutType('PC')">
-          {{i18nt('designer.toolbar.pcLayout')}}</el-button>
-        <el-button :type="layoutType === 'Pad' ? 'info': ''" @click="changeLayoutType('Pad')">
-          {{i18nt('designer.toolbar.padLayout')}}</el-button>
-        <el-button :type="layoutType === 'H5' ? 'info': ''" @click="changeLayoutType('H5')">
-          {{i18nt('designer.toolbar.mobileLayout')}}</el-button>
-      </el-button-group>
-      <el-button style="margin-left: 20px" :title="i18nt('designer.toolbar.nodeTreeHint')" @click="showNodeTreeDrawer">
-        <svg-icon icon-class="node-tree" /></el-button> -->
     </div>
-
-    <!-- <el-drawer :title="i18nt('designer.toolbar.nodeTreeTitle')" direction="ltr" v-model="showNodeTreeDrawerFlag" :modal="true" :size="280"
-               :destroy-on-close="true" class="node-tree-drawer">
-      <el-tree ref="nodeTree" :data="nodeTreeData" node-key="id" default-expand-all highlight-current class="node-tree"
-               icon-class="el-icon-arrow-right" @node-click="onNodeTreeClick"></el-tree>
-    </el-drawer> -->
-
     <div class="right-toolbar" >
       <div class="right-toolbar-con">
-        <el-button v-if="showToolButton('clearDesignerButton')" link type="primary" @click="clearFormWidget">
-          <svg-icon icon-class="el-delete" />{{i18nt('designer.toolbar.clear')}}</el-button>
-        <el-button v-if="showToolButton('previewFormButton')" link type="primary" @click="previewForm">
-          <svg-icon icon-class="el-view" />{{i18nt('designer.toolbar.preview')}}</el-button>
-        <el-button v-if="showToolButton('importJsonButton')" link type="primary" @click="importJson">
+        
+        <el-button v-if="showToolButton('importJsonButton')" link type="text" @click="importJson" style="background-color:none;color:#2c68ff;">
           {{i18nt('designer.toolbar.importJson')}}</el-button>
-        <el-button v-if="showToolButton('exportJsonButton')" link type="primary" @click="exportJson">
+        <el-button v-if="showToolButton('exportJsonButton')" link type="text" @click="exportJson" style="background-color:none;color:#2c68ff;">
           {{i18nt('designer.toolbar.exportJson')}}</el-button>
-        <el-button v-if="showToolButton('exportCodeButton')" link type="primary" @click="exportCode">
+        <el-button v-if="showToolButton('exportCodeButton')" link type="text" @click="exportCode" style="background-color:none;color:#2c68ff;">
           {{i18nt('designer.toolbar.exportCode')}}</el-button>
-        <!-- <el-button v-if="showToolButton('generateSFCButton')" link type="primary" @click="generateSFC">
-          <svg-icon icon-class="vue-sfc" />{{i18nt('designer.toolbar.generateSFC')}}</el-button> -->
+          <el-button v-if="showToolButton('clearDesignerButton')" link type="text" @click="clearFormWidget" style="background-color:none;color:#2c68ff;">
+          <!-- <svg-icon icon-class="el-delete" /> -->
+          {{i18nt('designer.toolbar.clear')}}
+        </el-button>
+        <el-button v-if="showToolButton('previewFormButton')" link type="text" @click="previewForm" style="background-color:none;color:#2c68ff;">
+          <!-- <svg-icon icon-class="el-view" /> -->
+          {{i18nt('designer.toolbar.preview')}}</el-button>
         <template v-for="(idx, slotName) in $slots">
           <slot :name="slotName"></slot>
         </template>
@@ -45,8 +30,9 @@
 
     <div v-if="showPreviewDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.preview')" v-model="showPreviewDialogFlag"
+                 :append-to="globalDsv.parentContainer"
                  :show-close="true" :close-on-click-modal="false" :close-on-press-escape="false" center
-                 :destroy-on-close="true" :append-to-body="true" class="drag-dialog small-padding-dialog" width="75%"
+                 :destroy-on-close="true"  class="drag-dialog small-padding-dialog" width="75%"
                  :fullscreen="(layoutType === 'H5') || (layoutType === 'Pad')">
         <div>
           <div class="form-render-wrapper" :class="[layoutType === 'H5' ? 'h5-layout' : (layoutType === 'Pad' ? 'pad-layout' : '')]">
@@ -64,10 +50,10 @@
             <el-button type="primary" @click="setFormDisabled">{{i18nt('designer.hint.disableForm')}}</el-button>
             <el-button type="primary" @click="setFormEnabled">{{i18nt('designer.hint.enableForm')}}</el-button>
             <el-button @click="showPreviewDialogFlag = false">{{i18nt('designer.hint.closePreview')}}</el-button>
-            <el-button v-if="false" @click="testLoadForm">Test Load</el-button>
+            <!-- <el-button v-if="false" @click="testLoadForm">Test Load</el-button>
             <el-button v-if="false" @click="testSetFormJson">Test SFJ</el-button>
             <el-button v-if="false" @click="testSetFormData">Test SFD</el-button>
-            <el-button v-if="false" @click="testReloadOptionData">Test ROD</el-button>
+            <el-button v-if="false" @click="testReloadOptionData">Test ROD</el-button> -->
           </div>
         </template>
       </el-dialog>
@@ -75,7 +61,8 @@
 
     <div v-if="showImportJsonDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.importJson')" v-model="showImportJsonDialogFlag"
-                 :show-close="true" class="drag-dialog small-padding-dialog" :append-to-body="true" center
+                :append-to="globalDsv.parentContainer || 'body'"
+                 :show-close="true" class="drag-dialog small-padding-dialog"  center
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <el-alert type="info" :title="i18nt('designer.hint.importJsonHint')" show-icon class="alert-padding"></el-alert>
         <code-editor :mode="'json'" :readonly="false" v-model="importTemplate"></code-editor>
@@ -92,7 +79,8 @@
 
     <div v-if="showExportJsonDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.exportJson')" v-model="showExportJsonDialogFlag"
-                 :show-close="true" class="drag-dialog small-padding-dialog" center append-to-body
+                 :append-to="globalDsv.parentContainer || 'body'"
+                 :show-close="true" class="drag-dialog small-padding-dialog" center 
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <code-editor :mode="'json'" :readonly="true" v-model="jsonContent"></code-editor>
         <template #footer>
@@ -108,25 +96,26 @@
     </div>
 
     <div v-if="showExportCodeDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-      <el-dialog :title="i18nt('designer.toolbar.exportCode')" v-model="showExportCodeDialogFlag"
-                 :show-close="true" class="drag-dialog small-padding-dialog" center append-to-body
+      <el-dialog :title="i18nt('designer.toolbar.exportCode') + 'Demo'" v-model="showExportCodeDialogFlag"
+                :append-to="globalDsv.parentContainer || 'body'"
+                 :show-close="true" class="drag-dialog small-padding-dialog" center
                  width="65%" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <el-tabs type="border-card" class="no-box-shadow no-padding" v-model="activeCodeTab">
           <el-tab-pane label="Vue" name="vue">
             <code-editor :mode="'html'" :readonly="true" v-model="vueCode" :user-worker="false"></code-editor>
           </el-tab-pane>
-          <el-tab-pane label="HTML" name="html">
+          <!-- <el-tab-pane label="HTML" name="html">
             <code-editor :mode="'html'" :readonly="true" v-model="htmlCode" :user-worker="false"></code-editor>
-          </el-tab-pane>
+          </el-tab-pane> -->
         </el-tabs>
         <template #footer>
           <div class="dialog-footer">
             <el-button type="primary" class="copy-vue-btn" :data-clipboard-text="vueCode" @click="copyVueCode">
               {{i18nt('designer.hint.copyVueCode')}}</el-button>
-            <el-button type="primary" class="copy-html-btn" :data-clipboard-text="htmlCode" @click="copyHtmlCode">
-              {{i18nt('designer.hint.copyHtmlCode')}}</el-button>
+            <!-- <el-button type="primary" class="copy-html-btn" :data-clipboard-text="htmlCode" @click="copyHtmlCode">
+              {{i18nt('designer.hint.copyHtmlCode')}}</el-button> -->
             <el-button @click="saveVueCode">{{i18nt('designer.hint.saveVueCode')}}</el-button>
-            <el-button @click="saveHtmlCode">{{i18nt('designer.hint.saveHtmlCode')}}</el-button>
+            <!-- <el-button @click="saveHtmlCode">{{i18nt('designer.hint.saveHtmlCode')}}</el-button> -->
             <el-button @click="showExportCodeDialogFlag = false">
               {{i18nt('designer.hint.closePreview')}}</el-button>
           </div>
@@ -136,9 +125,10 @@
 
     <div v-if="showFormDataDialogFlag" class="" v-drag="['.nested-drag-dialog.el-dialog', '.nested-drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.hint.exportFormData')" v-model="showFormDataDialogFlag"
+                :append-to="globalDsv.parentContainer || 'body'"
                  :show-close="true" class="nested-drag-dialog dialog-title-light-bg" center
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true"
-                 :append-to-body="true">
+                 >
         <div style="border: 1px solid #DCDFE6">
           <code-editor :mode="'json'" :readonly="true" v-model="formDataJson"></code-editor>
         </div>
@@ -155,7 +145,9 @@
     </div>
 
     <div v-if="showExportSFCDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-      <el-dialog :title="i18nt('designer.toolbar.generateSFC')" v-model="showExportSFCDialogFlag" append-to-body
+      <el-dialog :title="i18nt('designer.toolbar.generateSFC')" 
+                :append-to="globalDsv.parentContainer || 'body'"
+                v-model="showExportSFCDialogFlag"
                  v-if="showExportSFCDialogFlag" :show-close="true" class="drag-dialog small-padding-dialog" center
                  width="65%" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <el-tabs type="border-card" class="no-box-shadow no-padding" v-model="activeSFCTab">
@@ -448,6 +440,7 @@
       },
 
       previewForm() {
+      console.log('previewForm',this.globalDsv.parentContainer)
         this.showPreviewDialogFlag = true
       },
 
@@ -488,7 +481,6 @@
         this.importTemplate = JSON.stringify(this.designer.getImportTemplate(), null, '  ')
         this.showImportJsonDialogFlag = true
       },
-
       doJsonImport() {
         try {
           let importObj = JSON.parse(this.importTemplate)
@@ -536,7 +528,7 @@
 
       exportCode() {
         this.vueCode = generateCode(this.formJson)
-        this.htmlCode = generateCode(this.formJson, 'html')
+        // this.htmlCode = generateCode(this.formJson, 'html')
         this.showExportCodeDialogFlag = true
       },
 
@@ -597,10 +589,13 @@
       },
 
       getFormData() {
+
+
+
+
         this.$refs['preForm'].getFormData().then(formData => {
           this.formDataJson = JSON.stringify(formData, null, '  ')
           this.formDataRawJson = JSON.stringify(formData)
-
           this.showFormDataDialogFlag = true
         }).catch(error => {
           this.$message.error(error)
@@ -728,6 +723,11 @@
 </script>
 
 <style lang="scss" scoped>
+:deep(.el-button){
+  padding-left: 10px;
+  padding-right:10px;
+}
+
 .toolbar-container{
   display: flex;
   justify-content: space-between;

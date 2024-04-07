@@ -8,6 +8,7 @@ import '@/iconfont/iconfont.css'
 import Draggable from '@/../lib/vuedraggable/dist/vuedraggable.umd.js'
 import {registerIcon} from '@/utils/el-icons'
 import 'virtual:svg-icons-register'
+import VForm3 from "../install"; //导入
 
 import ContainerWidgets from '@/components/form-designer/form-widget/container-widget/index'
 import ContainerItems from '@/components/form-render/container-item/index'
@@ -30,6 +31,7 @@ installI18n(vfApp)
 
 vfApp.use(ContainerWidgets)
 vfApp.use(ContainerItems)
+vfApp.use(VForm3)
 loadExtension(vfApp)
 
 vfApp.mount('#app')

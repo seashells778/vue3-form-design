@@ -4,11 +4,7 @@
       <template #customToolButtons>
         <el-button type="text" @click="saveFormJson">保存111</el-button>
       </template>
-      <!-- <template #slotmap="formModel">
-        {{formModel}}{{1111}}
-        <el-input type="text" @click="doTest"></el-input>
-      </template> -->
-     
+ 
     </VFormDesigner>
   </div>
 </template>
@@ -27,9 +23,9 @@ export default {
       globalDsv: {
         testApiHost: 'http://www.test.com/api',
         testPort: 8080,
-        //  baseURL: '',
-        // commonPath:"",
-        // userInfo:JSON.parse(localStorage.getItem("userInfo"))
+        baseURL: '',
+        commonPath:'',
+        userInfo:''
       },
 
     }
@@ -48,6 +44,7 @@ export default {
 </script>
 
 <style lang="scss">
+
   #app {
     height: 100%;
   }

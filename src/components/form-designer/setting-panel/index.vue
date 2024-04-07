@@ -1,5 +1,5 @@
 <template>
-  <el-container class="panel-container">
+  <el-container class="panel-container setting-panel">
     <el-tabs v-model="activeTab" style="height: 100%; overflow: hidden">
       <el-tab-pane :label="i18nt('designer.hint.widgetSetting')" name="1">
         <el-scrollbar class="setting-scrollbar" :style="{height: scrollerHeight}">
@@ -78,7 +78,8 @@
 
     <div v-if="showWidgetEventDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.setting.editWidgetEventHandler')" v-model="showWidgetEventDialogFlag"
-                 :show-close="true" class="drag-dialog small-padding-dialog" append-to-body
+                 :show-close="true" class="drag-dialog small-padding-dialog" 
+                  :append-to="globalDsv.parentContainer || 'body'"
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <el-alert type="info" :closable="false" :title="eventHeader"></el-alert>
         <code-editor :mode="'javascript'" :readonly="false" v-model="eventHandlerCode" ref="ecEditor"></code-editor>
@@ -329,6 +330,7 @@
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/custom.scss";
   .panel-container {
     padding: 0 8px;
   }
@@ -337,6 +339,12 @@
     :deep(.el-scrollbar__wrap) {
       overflow-x: hidden; /* IE浏览器隐藏水平滚动条箭头！！ */
     }
+  }
+  :deep(.el-tabs__item.is-active){
+    color:#2c68ff;
+  }
+  :deep(.el-tabs__active-bar){
+    background-color:#2c68ff;
   }
 
   .setting-collapse {

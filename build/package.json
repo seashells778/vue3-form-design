@@ -1,0 +1,12 @@
+{
+  "name": "vform3-vite",
+  "version": "1.2.9",
+  "description": "基于vForm3二开",
+  "keywords": ["vform3-vite","vform"],
+  "main": "./dist/designer.umd.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
